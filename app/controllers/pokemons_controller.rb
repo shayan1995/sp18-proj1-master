@@ -16,6 +16,12 @@ class PokemonsController < ApplicationController
       @pokemon.update(pokemon_params)
       # @pokemon.ndex = ndx
       @pokemon.save!
+      if @pokemon.save == false
+      			flash[:error] = @pokemon.errors.full_messages.to_sentence
+            redirect_to(new_path)
+      else
+        redirect_to trainer_path(current_trainer)
+      end
       redirect_to trainer_path(current_trainer)
   end
 
